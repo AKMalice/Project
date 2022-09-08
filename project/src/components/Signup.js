@@ -20,6 +20,8 @@ function SignUp() {
   };
 
   return (
+    <>
+    <p>                    </p>
     <Card style={{ width: '60rem' , padding:'1cm' , display:'flex', marginTop:'2cm', margin:'auto' }}>
    <div >
    <h3 style={{marginBottom:'1cm'}}>Register</h3>
@@ -93,6 +95,7 @@ function SignUp() {
     </Form>
     </div>
     </Card>
+    </>
   );
 }
 export default SignUp;
