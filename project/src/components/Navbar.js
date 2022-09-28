@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Example from './Modal.js'
 import img from './images/logo2.png'
 
-function NavScrollExample() {
+function NavScrollExample(props) {
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
@@ -27,9 +27,8 @@ function NavScrollExample() {
             <Nav.Link href="/Home">Home</Nav.Link>
             <Nav.Link href="/SignIn">Sign In</Nav.Link>
             <Nav.Link href="/Register">Register</Nav.Link>
-            <Example name="Analytics"/>
-            <Example name="Mailing List"/>
-           
+           {props.token?<Nav.Link href="/Analytics">Analytics</Nav.Link> : <Example name="Analytics"/>}
+            {props.token?<Nav.Link href="/Mailing">Mailing List</Nav.Link> : <Example name="Mailing List"/>}
        
           </Nav>
           <Form className="d-flex">

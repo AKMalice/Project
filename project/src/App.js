@@ -5,6 +5,8 @@ import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import SignUp from './components/Signup';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import Analytics from './components/Analytics';
+import Mailing from './components/Mailing';
 
 
 function setToken(userToken) {
@@ -23,12 +25,15 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <Navbar/>
+      <Navbar token={token}/>
       <Routes>
       <Route  path='Home' element={< Home />}></Route>
       <Route  path='Register' element={< SignUp setToken={setToken} token={token} />}></Route>
       <Route  path='SignIn' element={token?<Profile token={token}/> :< SignIn setToken={setToken} token={token}/>}></Route>
+      <Route  path='Analytics' element={<Analytics/> }></Route>
+      <Route  path='Mailing' element={<Mailing/> }></Route>
       </Routes>
+
   
     </div>
     </Router>
