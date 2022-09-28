@@ -5,9 +5,16 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card'
+import axios from 'axios'
 
-function SignUp() {
+function SignUp(props) {
   const [validated, setValidated] = useState(false);
+
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -15,7 +22,26 @@ function SignUp() {
       event.preventDefault();
       event.stopPropagation();
     }
+    else{
+     const newToken= {
+      token : `${username}.${password}`
+     }
+      axios.post('http://localhost:3001/login',newToken).then(response=>{
+        console.log(response.data) 
+      })
 
+      const newUser={
+        name : name,
+        email : email,
+        username : username,
+        token : `${username}.${password}`
+      }
+
+      axios.post('http://localhost:3001/users',newUser).then(response=>{
+        console.log(`${response.data.name} added successfully`)
+      })
+    
+    }
     setValidated(true);
   };
 
@@ -32,7 +58,7 @@ function SignUp() {
        
         <Form.Group as={Col} md={{ span: 4, offset: 4 }} controlId="validationCustom05">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" placeholder="Name" required />
+          <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Name" required />
           <Form.Control.Feedback type="invalid">
             Please enter your Name
           </Form.Control.Feedback>
@@ -44,7 +70,7 @@ function SignUp() {
        
         <Form.Group as={Col} md={{ span: 4, offset: 4 }} controlId="validationCustom05">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="text" placeholder="Email" required />
+          <Form.Control  onChange={e => setEmail(e.target.value)} type="text" placeholder="Email" required />
           <Form.Control.Feedback type="invalid">
             Please enter your email
           </Form.Control.Feedback>
@@ -57,6 +83,7 @@ function SignUp() {
           <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
             <Form.Control
+            onChange={e => setUserName(e.target.value)}
               type="text"
               placeholder="Username"
               aria-describedby="inputGroupPrepend"
@@ -74,7 +101,7 @@ function SignUp() {
        
         <Form.Group as={Col} md={{ span: 4, offset: 4 }} controlId="validationCustom05">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" required />
+          <Form.Control onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" required />
           <Form.Control.Feedback type="invalid">
             Please enter your password
           </Form.Control.Feedback>

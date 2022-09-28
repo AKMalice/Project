@@ -4,28 +4,50 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/Card';
+import axios from 'axios'
 
-function SignIn() {
+
+function SignIn(props) {
   const [validated, setValidated] = useState(false);
+    
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
 
-  const handleSubmit = (event) => {
+  const handleLogin=(event)=>{
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
+    else{
+      axios.get('http://localhost:3001/login').then(response=>{
+        
+        console.log(props.token)
+        if(response.data.filter(data=> data.token===`${username}.${password}`).length===0)
+        {
+          alert("Invalid Login Credentials")
+        }
+        else{
+          const newToken=response.data.filter(data=> data.token===`${username}.${password}`)
+          props.setToken(newToken[0])
+          window.location.reload(false);
+        }
+      })
+    }
 
     setValidated(true);
-  };
+  }
 
+  
+  if(!props.token)
   return (
     <>
     <p>                    </p>
     <Card style={{ width: '60rem' , padding:'1cm' , display:'flex', marginTop:'2cm', margin:'auto' }}>
    <div >
    <h3 style={{marginBottom:'1cm'}}>Sign In</h3>
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+    <Form noValidate validated={validated} >
 
       <Row className="mb-3">
         <Form.Group as={Col} md={{ span: 4, offset: 4 }} controlId="validationCustomUsername">
@@ -33,6 +55,7 @@ function SignIn() {
           <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
             <Form.Control
+             onChange={e => setUserName(e.target.value)}
               type="text"
               placeholder="Username"
               aria-describedby="inputGroupPrepend"
@@ -50,7 +73,7 @@ function SignIn() {
        
         <Form.Group as={Col} md={{ span: 4, offset: 4 }} controlId="validationCustom05">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" required />
+          <Form.Control   onChange={e => setPassword(e.target.value)}type="password" placeholder="Password" required />
           <Form.Control.Feedback type="invalid">
             Please enter your password
           </Form.Control.Feedback>
@@ -64,12 +87,19 @@ function SignIn() {
           />
         </div>
       </Form.Group>
-      <Button type="submit">Login</Button>
+      <Button onClick={handleLogin}>Login</Button>
     </Form>
     </div>
     </Card>
     <footer id="footer">© 2022 Copyright SDP Project</footer>
     </>
   );
+  else{
+    return(
+      <>
+      Welcome
+      </>
+    )
+  }
 }
 export default SignIn;
