@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react'
+import {useState, useEffect} from 'react'
+import axios from 'axios';
 
 function Mailing() {
 
@@ -18,16 +20,40 @@ function Mailing() {
         {
           field: 'Email',
           headerName: 'Email',
-          width: 150,
+          width: 250,
           editable: false,
         },
       
       ];
 
-      const rows = [
-        { id: 1, Name: 'Snow', Email: 'Jon' },
-        { id: 2, Name: 'Lannister', Email: 'Cersei' }
-    ]
+      const [rows,setRows]=useState();
+      const [name,setName]=useState();
+      const [email,setEmail]=useState();
+      const [id,setId]=useState()
+
+      useEffect(() => {
+       axios.get('http://localhost:3001/mailing').then(response=>{
+        setRows(response.data)
+        setId(response.data.length+1)
+        console.log(response.data.length)
+       })
+      }, [])
+
+      const handleAdd = ()=>{
+        setId(id+1)
+         const item = {id : id,Name: name , Email : email}
+          
+         axios.post('http://localhost:3001/mailing',item).then(response=>{
+          console.log(response.data, " added successfully")
+          setRows(response.data)
+         })
+      }
+
+      if(!rows)
+      return(
+        <div>Loading...</div>
+      )
+      
 
   return (
     <div style={{marginTop:30, fontFamily: "Helvetica"}}>
@@ -40,12 +66,12 @@ function Mailing() {
       noValidate
       autoComplete="off"
     >
-        <TextField size="small" id="outlined-basic" label="Name" variant="outlined" />
-        <TextField size="small" id="outlined-basic" label="Email" variant="outlined" />
-        <Button variant="contained">add</Button>
+        <TextField onChange={e => setName(e.target.value)} size="small" id="outlined-basic" label="Name" variant="outlined" />
+        <TextField onChange={e => setEmail(e.target.value)} size="small" id="outlined-basic" label="Email" variant="outlined" />
+        <Button onClick={handleAdd} variant="contained">add</Button>
         </Box>
 
-         //Grid
+         
         <Box sx={{ height: 400, width: '80%',margin:"auto" ,marginTop:5}}>
       <DataGrid
         rows={rows}
