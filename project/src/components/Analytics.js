@@ -1,5 +1,5 @@
 import React from "react";
-import { Line } from 'react-chartjs-2';
+import { Doughnut, Line } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
 
@@ -35,8 +35,32 @@ export default function Analytics() {
     ]
   }}
 />
-<h5 style={{marginTop:5}}>Revenue 2022</h5>
+<h5 style={{marginTop:5,marginBottom:30}}>Revenue 2022</h5>
 </div>
+
+<div style={{margin: 'auto', height: '100px' ,width: '400px'}}>
+<Doughnut
+datasetIdKey="id"
+data={{
+  labels: [
+    'Youtube',
+    'Facebook',
+    'Instagram'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255,0,0)',
+      'rgb(54, 162, 235)',
+      '	rgb(139,0,139)'
+    ],
+    hoverOffset: 4
+  }]
+}}/>
+<h5 style={{marginTop:20,marginBottom:30}}> Cost Distribution</h5>
+</div>
+
     </div>
   );
 }

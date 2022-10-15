@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card'
 import axios from 'axios'
 
-function SignUp(props) {
+
+function SignUp({setToken,setUser}) {
   const [validated, setValidated] = useState(false);
 
   const [username, setUserName] = useState();
@@ -23,23 +24,21 @@ function SignUp(props) {
       event.stopPropagation();
     }
     else{
-     const newToken= {
-      token : `${username}.${password}`
-     }
-      axios.post('http://localhost:3001/login',newToken).then(response=>{
-        console.log(response.data) 
-      })
 
       const newUser={
         name : name,
         email : email,
         username : username,
-        token : `${username}.${password}`
+        password : password,
       }
 
-      axios.post('http://localhost:3001/users',newUser).then(response=>{
+      axios.post('http://localhost:3001/new-login',newUser).then(response=>{
         console.log(`${response.data.name} added successfully`)
+        setToken({token : response.data.token})
+        setUser(response.data)
       })
+
+
     
     }
     setValidated(true);
@@ -57,8 +56,8 @@ function SignUp(props) {
         
        
         <Form.Group as={Col} md={{ span: 4, offset: 4 }} controlId="validationCustom05">
-          <Form.Label>Name</Form.Label>
-          <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Name" required />
+          <Form.Label>Company Name</Form.Label>
+          <Form.Control onChange={e => setName(e.target.value)} type="text" placeholder="Company Name" required />
           <Form.Control.Feedback type="invalid">
             Please enter your Name
           </Form.Control.Feedback>

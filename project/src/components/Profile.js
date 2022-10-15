@@ -8,42 +8,31 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import { Button, CardActionArea } from '@mui/material';
 
-function Profile(props) {
+function Profile({user}) {
 
-    const [user,setUser]=useState(null);
+ 
+ if(!user)
+ return (<p>Loading ..</p>)
 
-    useEffect(() => {
-     axios.get('http://localhost:3001/users').then(response=>{
-        setUser(response.data.filter(user=>user.token===props.token))
-     })
-    }, [])
-    
-  if(user===null)
-  return (
-    <div>
-        <br></br>
-        Loading...
-   </div>
-  )
-  else
+ else
   return(
     <>
      
     <Card sx={{ maxWidth: 345 , margin: "auto" , marginTop:5 , marginBottom:5}}>
       <CardActionArea>
         <CardMedia>
-        <Avatar sx={{ width: 86, height: 86,margin: "auto",marginTop:2 }}><h1 style={{margin:"auto"}}>{user[0].name.charAt(0)}</h1></Avatar>
+        <Avatar sx={{ width: 86, height: 86,margin: "auto",marginTop:2 }}><h1 style={{margin:"auto"}}>{user.name.charAt(0)}</h1></Avatar>
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {user[0].name}
+            {user.name}
           </Typography>
           <Typography variant="body" >
-            Name :  {user[0].name}
+            Company Name :  {user.name}
             <br></br>
-            Username : {user[0].username}
+            Username : {user.username}
             <br></br>
-            Email : {user[0].email}
+            Email : {user.email}
           </Typography>
         </CardContent>
       </CardActionArea>

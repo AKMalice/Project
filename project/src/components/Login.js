@@ -23,14 +23,17 @@ function SignIn(props) {
     else{
       axios.get('http://localhost:3001/login').then(response=>{
         
-        console.log(props.token)
-        if(response.data.filter(data=> data.token===`${username}.${password}`).length===0)
+      const findUser = response.data.filter(user=> user.username === username && user.password === password)
+      
+        if(findUser.length !== 1)
         {
           alert("Invalid Login Credentials")
         }
         else{
-          const newToken=response.data.filter(data=> data.token===`${username}.${password}`)
-          props.setToken(newToken[0])
+          console.log(response.data)
+
+          props.setToken({token : findUser[0].token})
+          props.setUser(findUser[0])
           window.location.reload(false);
         }
       })
