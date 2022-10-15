@@ -1,20 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
+const User = require('./user')
 const app = express();
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-
-let users = [
-  { 
-    name : "Abdul",
-    username : "abdul123",
-    email : "abdul@gmail.com",
-    password : "1234",
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2hhbGlkIiwiZW1haWwiOiJhc2RmZ2giLCJ1c2VybmFtZSI6ImFiYzEyMyIsInBhc3N3b3JkIjoiMTIzIiwiaWF0IjoxNjY1NzQ1Mzc1fQ.iApAnaaKY7y-sYIvFzFYzPB0LS2Y_r5K8vGZP6pPmiE"
-  }
-]
 
 let mailing = [
     { id: 1, Name: 'Snow', Email: 'johndalton@gmail.com' },
@@ -22,39 +13,40 @@ let mailing = [
 ]
 
 app.get('/login', (req, res) => {
-      res.status(200).send(users)
+  User.find({}).then(result=>{
+    res.json(result)
+  })
   });
 
 app.post('/new-login',(req,res)=>{
-    const newUser= req.body
-    const newToken = jwt.sign(newUser,'ABCXYZ')
-    newUser.token=newToken
+    const body= req.body
+    const newToken = jwt.sign(req.body,'ABCXYZ')
+   
+    const user= new User({
+    name : body.name,
+    username : body.username,
+    email : body.email,
+    password :body.password,
+    token : newToken,
+    mailing : []
+})
 
-    users=users.concat(newUser)
-    console.log(users)
-    res.json(newUser)
+    user.save().then(savedUser=>{
+      res.json(savedUser)
+    }).catch(error=> console.log(error))
 });
 
 app.get('/users', (req, res) => {
-  res.send(users);
+  User.find({}).then(result=>{
+    res.json(result)
+  })
 });
 
-app.post('/users',(req,res)=>{
-  const userToken = req.body
-  console.log(userToken)
-  const findUser= users.find(user=> user.token === userToken)
-  console.log(findUser)
-  res.send(findUser)
-});
-
-app.get('/mailing',(req,res)=>{
-  res.send(mailing)
-});
-
-app.post('/mailing',(req,res)=>{
-  const newItem = req.body
-  mailing = mailing.concat(newItem)
-  res.send(mailing)
+app.put('/mailing',(req,res)=>{
+  const user = req.body
+  User.findByIdAndUpdate(user.id,user, { new: true }).then(result=>{
+    res.send(user.mailing)
+  })
 })
 
   app.listen(3001, () => console.log('Server is running on http://localhost:3001'));

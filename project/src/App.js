@@ -41,7 +41,7 @@ function App() {
       <Route  path='Register' element={< SignUp setToken={setToken} setUser={setUser} />}></Route>
       <Route  path='SignIn' element={token?<Profile user={user}/> :< SignIn setToken={setToken} token={token} setUser={setUser}/>}></Route>
       <Route  path='Analytics' element={<Analytics/> }></Route>
-      <Route  path='Mailing' element={<Mailing/> }></Route>
+      <Route  path='Mailing' element={<Mailing user={user}/> }></Route>
       </Routes>
 
   

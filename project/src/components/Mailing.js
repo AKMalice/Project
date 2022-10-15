@@ -7,7 +7,7 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios';
 
-function Mailing() {
+function Mailing({user}) {
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
@@ -29,21 +29,18 @@ function Mailing() {
       const [rows,setRows]=useState();
       const [name,setName]=useState();
       const [email,setEmail]=useState();
-      const [id,setId]=useState()
+      const [rowId,setId]=useState(0)
 
       useEffect(() => {
-       axios.get('http://localhost:3001/mailing').then(response=>{
-        setRows(response.data)
-        setId(response.data.length+1)
-        console.log(response.data.length)
-       })
+        setRows(user.mailing)
       }, [])
 
       const handleAdd = ()=>{
-        setId(id+1)
-         const item = {id : id,Name: name , Email : email}
-          
-         axios.post('http://localhost:3001/mailing',item).then(response=>{
+        const item = {id : rowId ,Name: name , Email : email}
+        setId(user.mailing.length+1)
+        user.mailing=user.mailing.concat(item)
+
+         axios.put('http://localhost:3001/mailing',user).then(response=>{
           console.log(response.data, " added successfully")
           setRows(response.data)
          })
