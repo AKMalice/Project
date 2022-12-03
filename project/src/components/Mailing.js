@@ -12,13 +12,13 @@ function Mailing({user}) {
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
-          field: 'Name',
+          field: 'mailingName',
           headerName: 'Name',
           width: 150,
           editable: false,
         },
         {
-          field: 'Email',
+          field: 'mailingEmail',
           headerName: 'Email',
           width: 250,
           editable: false,
@@ -29,20 +29,24 @@ function Mailing({user}) {
       const [rows,setRows]=useState();
       const [name,setName]=useState();
       const [email,setEmail]=useState();
-      const [rowId,setId]=useState(0)
+      const [rowId,setId]=useState(1);
 
       useEffect(() => {
-        setRows(user.mailing)
+
+        axios.get('http://localhost:3001/mailing').then(response=>{
+          console.log(response.data)
+          var maillist = response.data.filter(item => item.username === user.username)
+          setRows(maillist)
+          console.log(rows.length)
+      })
       }, [])
 
       const handleAdd = ()=>{
-        const item = {id : rowId ,Name: name , Email : email}
-        setId(user.mailing.length+1)
-        user.mailing=user.mailing.concat(item)
-
-         axios.put('http://localhost:3001/mailing',user).then(response=>{
+        const item = {id : rows.length+1 , username : user.username, mailingName: name , mailingEmail : email}
+        setId(rows.length+1)
+         axios.post('http://localhost:3001/mailing',item).then(response=>{
           console.log(response.data, " added successfully")
-          setRows(response.data)
+          setRows(rows.concat(item))
          })
       }
 

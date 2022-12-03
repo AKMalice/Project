@@ -1,16 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
-const User = require('./user')
+const Users = require('./user')
+const User = Users.User
+const Mail = Users.Mail
 const app = express();
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-
-let mailing = [
-    { id: 1, Name: 'Snow', Email: 'johndalton@gmail.com' },
-    { id: 2, Name: 'Lannister', Email: 'caresi@gmail.com' }
-]
 
 app.get('/login', (req, res) => {
   User.find({}).then(result=>{
@@ -46,6 +43,26 @@ app.put('/mailing',(req,res)=>{
   const user = req.body
   User.findByIdAndUpdate(user.id,user, { new: true }).then(result=>{
     res.send(user.mailing)
+  })
+})
+
+app.post('/mailing',(req,res)=>{
+  const mail = new Mail ({
+    id : req.body.id,
+    username : req.body.username,
+    mailingName : req.body.mailingName,
+    mailingEmail : req.body.mailingEmail
+  })
+
+  mail.save().then(savedMail=>{
+    res.json(savedMail)
+  }).catch(error=> console.log(error))
+
+})
+
+app.get('/mailing',(req,res)=>{
+  Mail.find({}).then(result=>{
+     res.json(result)
   })
 })
 

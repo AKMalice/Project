@@ -19,4 +19,14 @@ const userSchema = new mongoose.Schema({
     mailing : [{id: String, Name: String , Email : String}]
   })
 
-  module.exports = mongoose.model('User',userSchema)
+  const mailingSchema = new mongoose.Schema({
+    id : Number,
+    username : String,
+    mailingName : String,
+    mailingEmail : String
+  })
+
+  module.exports =  {
+    User : mongoose.model('User',userSchema),
+    Mail : mongoose.model('Mail',mailingSchema)
+}

@@ -32,7 +32,7 @@ function SignUp({setToken,setUser}) {
         password : password,
       }
 
-      axios.post('http://localhost:3001/new-login',newUser).then(response=>{
+      axios.post('/new-login',newUser).then(response=>{
         console.log(`${response.data.name} added successfully`)
         setToken({token : response.data.token})
         setUser(response.data)
