@@ -58,7 +58,7 @@ function Mailing({user}) {
 
   return (
     <div style={{marginTop:30, fontFamily: "Helvetica"}}>
-        <h2>MAILING LIST</h2>
+        <h2 style={{color:'GrayText'}}>MAILING LIST</h2>
         <Box
       component="form"
       sx={{

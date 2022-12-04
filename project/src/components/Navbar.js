@@ -16,7 +16,7 @@ function NavScrollExample(props) {
               height="30"
               className="d-inline-block align-top"
               alt=""
-            />{' '}SDP PROJECT</Navbar.Brand>
+            />{' '}LUNA</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -27,7 +27,7 @@ function NavScrollExample(props) {
             <Nav.Link href="/Home">Home</Nav.Link>
             <Nav.Link href="/SignIn">Sign In</Nav.Link>
             <Nav.Link href="/Register">Register</Nav.Link>
-           {props.token?<Nav.Link href="/Analytics">Analytics</Nav.Link> : <Example name="Analytics"/>}
+           {props.token?<Nav.Link href="/Analytics" >Analytics</Nav.Link> : <Example name="Analytics"/>}
             {props.token?<Nav.Link href="/Mailing">Mailing List</Nav.Link> : <Example name="Mailing List"/>}
        
           </Nav>

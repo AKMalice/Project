@@ -9,7 +9,6 @@ import Profile from './components/Profile';
 import Analytics from './components/Analytics';
 import Mailing from './components/Mailing';
 
-
 function setToken(userToken) {
   sessionStorage.setItem('token', JSON.stringify(userToken));
 }
@@ -43,10 +42,9 @@ function App() {
       <Route  path='Analytics' element={<Analytics/> }></Route>
       <Route  path='Mailing' element={<Mailing user={user}/> }></Route>
       </Routes>
-
-  
     </div>
     </Router>
+   
   );
 }
 

@@ -1,27 +1,31 @@
 import React from 'react'
+import Card from './Card/Card'
 import Car from './Carousel'
-import mysvg from './images/layered-waves-haikei2.svg'
-import mysvg2 from './images/wave-haikei1.svg'
-import WithHeaderAndQuoteExample from './Card'
+import mysvg from './images/layered-waves-haikei2.svg';
+import Companies from './Companies/Companies'
+import Button from './AskaQues/Button'
+import Foot from './Footer/Foot'
+{/*
 
+import Form from './Form/Form'
+import Foot from './Footer/Foot'*/}
 function Home() {
   return (
     <>
      <div style={{ backgroundImage: `url(${mysvg})` , backgroundRepeat:"no-repeat", height:700}}>
-     
-    
-    <h2>‎ </h2>
+    <h2>‎</h2>
    <Car/>
-   <p style={{color:'white',marginTop:'50px'}}>LUNA is a one stop solution to your marketing needs providing real-time Analytics Solutions and Automated emailing</p>
+   <p style={{color:'white',marginTop:'50px'}}>
+    LUNA is a one stop solution to your marketing needs providing real-time Analytics Solutions and Automated emailing
+    </p>
    </div>
-
-   <div style={{ backgroundImage: `url(${mysvg2})` , backgroundRepeat:"no-repeat", height:500}}>
-  
-      <WithHeaderAndQuoteExample style={{margin:'auto',width:50}}/>
+   <Card/>
+   <Companies/>
+   <div>
+   <Button/>
+   <Foot/>
    </div>
-   
    </>
   )
 }
-
-export default Home
+export default Home;

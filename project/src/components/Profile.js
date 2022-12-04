@@ -37,7 +37,7 @@ function Profile({user}) {
         </CardContent>
       </CardActionArea>
     </Card>
-    <Button variant="outlined" color='inherit' onClick={()=>{
+    <Button variant="contained" color='primary' onClick={()=>{
         sessionStorage.clear()
         window.location.reload(false);
         }}> Sign Out</Button>

@@ -14,9 +14,9 @@ function Example({name}) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign In Required</Modal.Title>
+          <Modal.Title style={{color:'GrayText'}}>Sign In Required</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Please login before accessing {name}</Modal.Body>
+        <Modal.Body style={{color:'GrayText'}}>Please login before accessing {name}</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
             Close

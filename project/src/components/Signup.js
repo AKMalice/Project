@@ -47,9 +47,9 @@ function SignUp({setToken,setUser}) {
   return (
     <>
     <p>                    </p>
-    <Card style={{ width: '60rem' , padding:'1cm' , display:'flex', marginTop:'2cm', margin:'auto' }}>
+    <Card style={{ width: '60rem' , padding:'1cm' , display:'flex',height : '700px', marginTop:'1cm', margin:'auto' }}>
    <div >
-   <h3 style={{marginBottom:'1cm'}}>Register</h3>
+   <h3 style={{marginBottom:'-600px'}}>Register</h3>
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
     <Row className="mb-3">

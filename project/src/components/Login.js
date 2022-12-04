@@ -47,9 +47,9 @@ function SignIn(props) {
   return (
     <>
     <p>                    </p>
-    <Card style={{ width: '60rem' , padding:'1cm' , display:'flex', marginTop:'2cm', margin:'auto' }}>
+    <Card style={{ width: '60rem' , padding:'1cm' ,height : '400px', display:'flex', marginTop:'1cm', margin:'auto' }}>
    <div >
-   <h3 style={{marginBottom:'1cm'}}>Sign In</h3>
+   <h3 style={{marginBottom:'-600px'}}>Sign In</h3>
     <Form noValidate validated={validated} >
 
       <Row className="mb-3">
@@ -84,9 +84,9 @@ function SignIn(props) {
       </Row>
       <Form.Group className="mb-3" >
       <div className='d-flex justify-content-center'>
-      <Form.Check 
+      <Form.Check style={{color:'GrayText'}}
             type="checkbox"
-            label ="Remember Me"
+            label="Remember Me"
           />
         </div>
       </Form.Group>

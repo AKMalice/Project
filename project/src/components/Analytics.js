@@ -38,7 +38,7 @@ const state = {
 export default function Analytics() {
   return (
     <div style={{marginLeft:'30px',marginBottom:'900px'}}>
-       <h2 style={{marginTop : 30, marginBottom:30}}>ANALYTICS</h2>
+       <h2 style={{marginTop : 30, marginBottom:30,color:'GrayText'}}>ANALYTICS</h2>
     <div style={{display : 'flex'}}>
        
        <Card sx={{marginLeft:'20px',width:'500px',height:'250px'}}>
