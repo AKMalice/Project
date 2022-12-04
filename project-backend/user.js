@@ -26,7 +26,14 @@ const userSchema = new mongoose.Schema({
     mailingEmail : String
   })
 
+  const querySchema = new mongoose.Schema({
+    qname : String,
+    qemail : String,
+    query : String
+  })
+
   module.exports =  {
     User : mongoose.model('User',userSchema),
-    Mail : mongoose.model('Mail',mailingSchema)
+    Mail : mongoose.model('Mail',mailingSchema),
+    Query : mongoose.model('Query',querySchema)
 }

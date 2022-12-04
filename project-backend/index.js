@@ -3,11 +3,24 @@ const jwt = require('jsonwebtoken')
 const Users = require('./user')
 const User = Users.User
 const Mail = Users.Mail
+const Query = Users.Query
 const app = express();
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
+app.post('/queries',(req,res)=>{
+  const newquery = new Query({
+    qname : req.body.qname,
+    qemail : req.body.qemail,
+    query : req.body.query
+  })
+
+  newquery.save().then(savedQuery=>{
+    res.json(savedQuery)
+  }).catch(error=> console.log(error))
+
+})
 
 app.get('/login', (req, res) => {
   User.find({}).then(result=>{

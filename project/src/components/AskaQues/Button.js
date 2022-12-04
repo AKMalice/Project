@@ -1,6 +1,7 @@
 import React from 'react'
 import './button.css'
 import { useState } from 'react';
+import axios from 'axios';
 const Button = () => {
 	const [isShown, setIsShown] = useState(false);
 
@@ -39,15 +40,32 @@ const Button = () => {
 export default Button;
 
 function Box() {
+
+  const [qname,setQname] = useState()
+  const [qemail,setQemail] = useState()
+  const [querys,setQuery] = useState()
+
+  const handleSubmit = () =>{
+    const newquery = {
+      qname : qname,
+      qemail : qemail,
+      query : querys
+    }
+
+    axios.post('http://localhost:3001/queries',newquery).then(response=>{
+          console.log(response.data, " added successfully")
+    })
+}
+
 	return (
 	  <div>
 		<div class="wrapper">
     <form class="former">
       <div class="pageTitle titler">Post Your Query</div>
-      <input type="text" class="name formEntrypoint" placeholder="Name" />
-      <input type="text" class="email formEntrypoint" placeholder="Email"/>
-      <textarea class="message formEntrypoint" placeholder="Message"></textarea>
-      <button class="submitclose formEntrypoint" onclick="thanks()">Submit</button>
+      <input type="text" class="name formEntrypoint" placeholder="Name" onChange={e=> setQname(e.target.value)} />
+      <input type="text" class="email formEntrypoint" placeholder="Email" onChange={e=> setQemail(e.target.value)}/>
+      <textarea class="message formEntrypoint" placeholder="Message" onChange={e=> setQuery(e.target.value)}></textarea>
+      <button  onClick={handleSubmit}>Submit</button>
     </form>
   </div>
 	  </div>
